@@ -1,13 +1,14 @@
-// Two Lines to Your Past Self — v3 entry program.
-// Line 2 shows the letter's endurance with concrete benchmarks: twelve years, three moves, every job offer.
-// Writes the two-line warning to /output/entry.txt (gate: 1-280 chars).
-import { mkdirSync, writeFileSync } from "node:fs";
+import { writeFileSync, chmodSync } from 'node:fs';
+import { join } from 'node:path';
 
+// two-lines-past-self v3 (rebuild): one small moment, one song carried forward.
+// Positive chain: the finished song outlives the afternoon and is sung onward.
 const lines = [
-  "At 9:47 AM on June 12 in Room 9, don't second-guess question 14 — circle B and move on.",
-  "That B won you the scholarship, and the letter still hangs on the fridge twelve years later, creased from three moves and held beside every job offer since.",
+  "Don't leave the song unfinished on the piano in the school music room at 4pm on 11 March 2012.",
+  "That song became the lullaby you sang your daughter, and she now sings it to her baby every night.",
 ];
-
-mkdirSync("/output", { recursive: true });
-writeFileSync("/output/entry.txt", lines.join("\n") + "\n", "utf8");
-console.log("wrote /output/entry.txt");
+const text = lines.join('\n');
+const outDir = process.env.MAKEFUN_OUTPUT_DIR || process.cwd();
+const target = join(outDir, 'entry.txt');
+writeFileSync(target, text, 'utf8');
+chmodSync(target, 0o644);
